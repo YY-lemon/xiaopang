@@ -11,18 +11,20 @@
         <el-form-item prop="username">
         </el-form-item>
         <el-form-item prop="username">
-          <el-input v-model="ruleForm.userName"
+          <el-input v-model="ruleForm.username"
                     prefix-icon="iconfont icon-cedaohang-zhanghao"
                     placeholder="账户"></el-input>
         </el-form-item>
-        <el-form-item prop="password">
+        <el-form-item prop="password"
+                      @keydown.enter.native="loginIn(ruleForm)">
           <el-input v-model="ruleForm.password"
                     prefix-icon="iconfont icon-mima"
                     placeholder="密码"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary"
-                     class="loginBtn">登录</el-button>
+                     class="loginBtn"
+                     @click="loginIn(ruleForm)">登录</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -30,6 +32,7 @@
 </template>
            
 <script>
+import { checkUser } from '@/api/api.js'
 export default {
   data() {
     return {
@@ -45,6 +48,29 @@ export default {
           { required: true, message: '请输入密码', trigger: 'blur' },
         ]
       }
+    }
+  },
+  methods: {
+    // 登录按钮
+    loginIn(ruleForm) {
+      // 表单校验
+      this.$refs.ruleForm.validate((valid) => {
+        if (valid) {
+          // 验证通过
+          checkUser(this.ruleForm).then(res => {
+            // console.log(res);
+            if (res.meta.status === 200) {
+              this.$router.push({ name: 'Welcome' })
+              // 保存token值
+              let mytoken = localStorage.setItem('mytoken', res.data.token)
+            } else {
+              this.$message.error('res.meta.msg');
+            }
+          })
+        } else {
+          this.$message.warning('验证未通过');
+        }
+      })
     }
   },
 }

@@ -9,7 +9,22 @@ import './styles/index.css'
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false
+// 路由全局守卫
+router.beforeEach((to, from, next) => {
+  let token = localStorage.getItem('mytoken')
+  if (token) { // 判断当前的token是否存在
+    next();
+  } else {
+    if (to.path !== '/login') {
+      next({
+        path: '/login'
+      })
+    } else {
+      next();
+    }
 
+  }
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
