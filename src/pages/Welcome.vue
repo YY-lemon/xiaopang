@@ -1,7 +1,5 @@
 <template>
-  <div class='welcome'>
-    御剑乘风来,除魔天地间!
-  </div>
+  <div class="welcome">欢迎登录</div>
 </template>
            
 <script>

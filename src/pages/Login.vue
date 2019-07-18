@@ -19,7 +19,8 @@
                       @keydown.enter.native="loginIn(ruleForm)">
           <el-input v-model="ruleForm.password"
                     prefix-icon="iconfont icon-mima"
-                    placeholder="密码"></el-input>
+                    placeholder="密码"
+                    type="password"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary"
@@ -60,9 +61,13 @@ export default {
           checkUser(this.ruleForm).then(res => {
             // console.log(res);
             if (res.meta.status === 200) {
-              this.$router.push({ name: 'Welcome' })
+              // this.$router.push({ name: 'Welcome', params: { account } })
               // 保存token值
-              let mytoken = localStorage.setItem('mytoken', res.data.token)
+              localStorage.setItem('mytoken', res.data.token)
+              let account = this.ruleForm.username
+              this.$router.push({ name: 'Welcome', params: { account } })
+              // localStorage.setItem('accountName', account)
+              // console.log(accountName);
             } else {
               this.$message.error('res.meta.msg');
             }
@@ -102,8 +107,9 @@ export default {
     }
     .form {
       width: 400px;
-      padding: 0 40px;
-      margin-top: 60px;
+      // padding: 0 40px;
+      // margin-top: 60px;
+      margin: 60px auto 0;
       /deep/ .el-form-item__content {
         margin-left: 0 !important;
       }
