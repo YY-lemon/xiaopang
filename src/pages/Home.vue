@@ -19,7 +19,10 @@
             </template>
             <el-menu-item index="1">
               <i class="el-icon-menu"></i>
-              <span slot="title">用户列表</span>
+              <!-- <span slot="title">用户列表</span> -->
+              <span slot="title">
+                <router-link to="user">用户列表</router-link>
+              </span>
             </el-menu-item>
           </el-submenu>
 
@@ -30,11 +33,17 @@
             </template>
             <el-menu-item index="2">
               <i class="el-icon-menu"></i>
-              <span slot="title">角色列表</span>
+              <!-- <span slot="title">角色列表</span> -->
+              <span slot="title">
+                <router-link to="/role">角色列表</router-link>
+              </span>
             </el-menu-item>
             <el-menu-item index="3">
               <i class="el-icon-menu"></i>
-              <span slot="title">权限列表</span>
+              <!-- <span slot="title">权限列表</span> -->
+              <span slot="title">
+                <router-link to="/right">权限列表</router-link>
+              </span>
             </el-menu-item>
           </el-submenu>
 
@@ -90,7 +99,8 @@
         </div>
         <div class="title">电商后台管理系统</div>
         <div class="info">
-          <span>您好,{{$route.params.account}}</span>
+          <!-- <span>您好,{{$route.params.account}}</span> -->
+          <span>您好,{{account}}</span>
           <span @click="loginOut">退出</span>
         </div>
       </div>
@@ -111,7 +121,6 @@ export default {
   },
   created() {
     this.account = localStorage.getItem('accountName')
-    console.log(this.$route.params.account);
   },
   methods: {
     handleMenu() {
@@ -196,6 +205,9 @@ export default {
           cursor: pointer;
         }
       }
+    }
+    .content {
+      margin-top: 20px;
     }
   }
 }

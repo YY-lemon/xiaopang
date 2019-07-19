@@ -61,12 +61,13 @@ export default {
           checkUser(this.ruleForm).then(res => {
             // console.log(res);
             if (res.meta.status === 200) {
-              // this.$router.push({ name: 'Welcome', params: { account } })
+
               // 保存token值
               localStorage.setItem('mytoken', res.data.token)
               let account = this.ruleForm.username
-              this.$router.push({ name: 'Welcome', params: { account } })
-              // localStorage.setItem('accountName', account)
+              // this.$router.push({ name: 'Welcome', params: { account } })
+              localStorage.setItem('accountName', account)
+              this.$router.push({ name: 'Welcome' })
               // console.log(accountName);
             } else {
               this.$message.error('res.meta.msg');
