@@ -51,3 +51,27 @@ export const grantUserRole = params => {
 export const getRoleList = params => {
   return axios.get('roles').then(res => res.data)
 }
+// 添加角色
+export const addRoleApi = params => {
+  return axios.post('roles', params).then(res => res.data)
+}
+// 根据ID查询角色
+export const searchRoleApi = params => {
+  return axios.get(`roles/${params.id}`).then(res => res.data)
+}
+// 编辑提交角色
+export const editRoleSubmitApi = params => {
+  return axios.put(`roles/${params.id}`, params).then(res => res.data)
+}
+// 删除角色
+export const deleteRoleSubmitApi = params => {
+  return axios.delete(`roles/${params.id}`).then(res => res.data)
+}
+// 所有权限列表
+export const getRoleRightsApi = params => {
+  return axios.get(`rights/${params.type}`).then(res => res.data)
+}
+// 角色授权
+export const grantRoleRightApi = params => {
+  return axios.post(`roles/${params.roleId}/rights`, params).then(res => res.data)
+}
