@@ -91,7 +91,8 @@
     </el-row>
     <!-- 添加角色对话框 -->
     <el-dialog title="添加角色"
-               :visible.sync="addRoleDialogFormVisible">
+               :visible.sync="addRoleDialogFormVisible"
+               center>
       <el-form :model="addRoleForm"
                :rules="rules"
                ref="addRoleForm">
@@ -117,7 +118,8 @@
     </el-dialog>
     <!-- 编辑角色对话框 -->
     <el-dialog title="编辑角色"
-               :visible.sync="editRoleDialogFormVisible">
+               :visible.sync="editRoleDialogFormVisible"
+               center>
       <el-form :model="editRoleForm"
                :rules="rules"
                ref="editRoleForm">
@@ -143,7 +145,8 @@
     </el-dialog>
     <!-- 授权角色对话框 -->
     <el-dialog title="授权角色"
-               :visible.sync="grantRoleDialogFormVisible">
+               :visible.sync="grantRoleDialogFormVisible"
+               center>
       <el-tree :data="rightLists"
                show-checkbox
                node-key="id"
@@ -344,6 +347,9 @@ export default {
 .role {
   padding: 0 20px;
   height: calc(100% - 60px);
+  /deep/ .el-dialog__header {
+    background-color: skyblue;
+  }
   .header {
     height: 45px;
     background: #d3dce6;

@@ -11,83 +11,22 @@
                  text-color="#fff"
                  active-text-color="#ffd04b"
                  :collapse="isCollapse"
-                 :unique-opened="true">
-          <el-submenu index="1">
+                 :unique-opened="true"
+                 router>
+          <el-submenu :index="(item.id).toString()"
+                      v-for="item  in menuList"
+                      :key="item.id">
             <template slot="title">
               <i class="el-icon-location"></i>
-              <span>用户管理</span>
+              <span>{{item.authName}}</span>
             </template>
-            <el-menu-item index="1">
+            <el-menu-item :index="subItem.path"
+                          v-for="subItem in item.children"
+                          :key="subItem.id">
               <i class="el-icon-menu"></i>
-              <!-- <span slot="title">用户列表</span> -->
-              <span slot="title">
-                <router-link to="user">用户列表</router-link>
-              </span>
+              <span slot="title">{{subItem.authName}}</span>
             </el-menu-item>
           </el-submenu>
-
-          <el-submenu index="2">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>权限管理</span>
-            </template>
-            <el-menu-item index="2">
-              <i class="el-icon-menu"></i>
-              <!-- <span slot="title">角色列表</span> -->
-              <span slot="title">
-                <router-link to="/role">角色列表</router-link>
-              </span>
-            </el-menu-item>
-            <el-menu-item index="3">
-              <i class="el-icon-menu"></i>
-              <!-- <span slot="title">权限列表</span> -->
-              <span slot="title">
-                <router-link to="/right">权限列表</router-link>
-              </span>
-            </el-menu-item>
-          </el-submenu>
-
-          <el-submenu index="4">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>商品管理</span>
-            </template>
-            <el-menu-item index="4">
-              <i class="el-icon-menu"></i>
-              <span slot="title">商品列表</span>
-            </el-menu-item>
-            <el-menu-item index="5">
-              <i class="el-icon-menu"></i>
-              <span slot="title">分类参数</span>
-            </el-menu-item>
-            <el-menu-item index="6">
-              <i class="el-icon-menu"></i>
-              <span slot="title">商品分类</span>
-            </el-menu-item>
-          </el-submenu>
-
-          <el-submenu index="7">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>订单管理</span>
-            </template>
-            <el-menu-item index="7">
-              <i class="el-icon-menu"></i>
-              <span slot="title">订单列表</span>
-            </el-menu-item>
-          </el-submenu>
-
-          <el-submenu index="8">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>数据统计</span>
-            </template>
-            <el-menu-item index="8">
-              <i class="el-icon-menu"></i>
-              <span slot="title">数据列表</span>
-            </el-menu-item>
-          </el-submenu>
-
         </el-menu>
       </div>
     </div>
@@ -111,16 +50,26 @@
   </div>
 </template>
            
-<script>
+<script> 
+import { getMenuRightApi } from '@/api/api.js'
 export default {
   data() {
     return {
       isCollapse: false,
-      account: ''
+      account: '',
+      menuList: []
     }
   },
   created() {
     this.account = localStorage.getItem('accountName')
+    getMenuRightApi().then(res => {
+      console.log(res);
+      if (res.meta.status == 200) {
+        this.menuList = res.data
+      } else {
+        this.$message.warning(res.meta.msg)
+      }
+    })
   },
   methods: {
     handleMenu() {
@@ -143,8 +92,8 @@ export default {
 </script>
 <style lang='less' scoped>
 .home {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   .aside {
     width: auto;
@@ -207,7 +156,12 @@ export default {
       }
     }
     .content {
-      margin-top: 20px;
+      padding-top: 20px;
+      height: calc(100% - 82px);
+      width: 100%;
+      // background-color: red;
+      overflow-y: auto;
+      // overflow: hidden;
     }
   }
 }

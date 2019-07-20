@@ -89,7 +89,8 @@
     </div>
     <!-- 添加用户对话框 -->
     <el-dialog title="添加用户"
-               :visible.sync="addDialogFormVisible">
+               :visible.sync="addDialogFormVisible"
+               center>
       <el-form :model="addForm"
                :rules="rules"
                ref="addForm">
@@ -128,7 +129,8 @@
     </el-dialog>
     <!-- 编辑用户对话框 -->
     <el-dialog title="编辑用户"
-               :visible.sync="editDialogFormVisible">
+               :visible.sync="editDialogFormVisible"
+               center>
       <el-form :model="editForm"
                :rules="rules"
                ref="editForm">
@@ -161,7 +163,8 @@
     </el-dialog>
     <!-- 分配角色对话框 -->
     <el-dialog title="分配角色"
-               :visible.sync="roleDialogFormVisible">
+               :visible.sync="roleDialogFormVisible"
+               center>
       <el-form :model="roleForm"
                ref="roleForm"
                label-width="120px">

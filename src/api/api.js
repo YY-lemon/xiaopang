@@ -75,3 +75,7 @@ export const getRoleRightsApi = params => {
 export const grantRoleRightApi = params => {
   return axios.post(`roles/${params.roleId}/rights`, params).then(res => res.data)
 }
+// 左侧菜单权限
+export const getMenuRightApi = params => {
+  return axios.get('menus').then(res => res.data)
+}

@@ -27,17 +27,17 @@ export default new Router({
         },
         {
           name: 'UserList',
-          path: 'user',
+          path: 'users',
           component: UserList,
         },
         {
           name: 'Role',
-          path: 'role',
+          path: 'roles',
           component: Role,
         },
         {
           name: 'Right',
-          path: 'right',
+          path: 'rights',
           component: Right,
         }
       ]
