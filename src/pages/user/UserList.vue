@@ -175,8 +175,10 @@
         <el-form-item label="请选择角色:"
                       prop="chooseRole">
           <el-select v-model="value">
-            <el-option value="1">1</el-option>
-
+            <el-option v-for="item in options"
+                       :key="item.id"
+                       :label="item.roleName"
+                       :value="item.id"></el-option>
           </el-select>
         </el-form-item>
 
@@ -185,14 +187,14 @@
            class="dialog-footer">
         <el-button @click="roleDialogFormVisible = false">取 消</el-button>
         <el-button type="primary"
-                   @click="editSubmit(editForm)">确 定</el-button>
+                   @click="roleSubmit">确 定</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
            
 <script>
-import { getUserList, addUser, editUserState, searchUserInfo, editUserSubmit, deleteUser, grantRole, getRoleList } from '@/api/api.js';
+import { getUserList, addUser, editUserState, searchUserInfo, editUserSubmit, deleteUser, grantUserRole, getRoleList } from '@/api/api.js';
 export default {
   data() {
     // 验证邮箱
@@ -258,6 +260,8 @@ export default {
         chooseRole: ''
       },
       value: '',
+      options: [],
+      id: 0, //用户id
       rules: {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -393,13 +397,41 @@ export default {
     },
     // 显示分配角色对话框
     grantRole(row) {
+      this.id = row.id
+      this.roleForm.currentUser = row.username
       this.roleDialogFormVisible = !this.roleDialogFormVisible
       // 获取角色列表
       getRoleList().then(res => {
         console.log(res);
+        if (res.meta.status == 200) {
+          this.options = res.data
+          console.log(this.options);
+        } else {
+          this.$message.warning(res.meta.msg);
+        }
+
       })
     },
-
+    // 修改用户角色确定提交按钮
+    roleSubmit() {
+      // console.log(this.value);
+      if (this.value == '') {
+        this.$message.warning('角色不能为空');
+      }
+      grantUserRole({ id: this.id, rid: this.value }).then(res => {
+        if (res.meta.status == 200) {
+          this.$message({
+            showClose: true,
+            duration: 5000,
+            message: res.meta.msg,
+            type: 'success'
+          });
+          this.roleDialogFormVisible = !this.roleDialogFormVisible
+        } else {
+          this.$message.warning(res.meta.msg);
+        }
+      })
+    }
   },
   created() {
     this.initTable()
@@ -434,7 +466,7 @@ export default {
     }
   }
   .current-input {
-    width: 55px;
+    width: 80px;
   }
 }
 </style>

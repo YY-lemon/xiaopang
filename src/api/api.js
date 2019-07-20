@@ -44,10 +44,10 @@ export const deleteUser = params => {
   return axios.delete(`users/${params.id}`).then(res => res.data)
 }
 // 分配用户角色
-export const grantRole = params => {
+export const grantUserRole = params => {
   return axios.put(`users/${params.id}/role`, params).then(res => res.data)
 }
 // 获取角色列表
 export const getRoleList = params => {
-  return axios.put('roles').then(res => res.data)
+  return axios.get('roles').then(res => res.data)
 }
