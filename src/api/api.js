@@ -83,3 +83,23 @@ export const getMenuRightApi = params => {
 export const getGoodsDataApi = params => {
   return axios.get('goods', params).then(res => res.data)
 }
+// 添加商品
+export const addGoodsApi = params => {
+  return axios.post('goods', params).then(res => res.data)
+}
+// 根据ID查询商品
+export const searchGoodsApi = params => {
+  return axios.get(`goods/${params.id}`).then(res => res.data)
+}
+// 编辑提交商品
+export const editGoodsSubmitApi = params => {
+  return axios.put(`goods/${params.id}`, params).then(res => res.data)
+}
+// 删除商品
+export const deleteGoodsApi = params => {
+  return axios.delete(`goods/${params.id}`).then(res => res.data)
+}
+// 基于类型统计（饼图）
+export const getPieDataApi = params => {
+  return axios.get('reports/:type').then(res => res.data)
+}
