@@ -67,7 +67,7 @@ export default {
               let account = this.ruleForm.username
               // this.$router.push({ name: 'Welcome', params: { account } })
               localStorage.setItem('accountName', account)
-              this.$router.push({ name: 'Welcome' })
+              this.$router.push({ name: 'Home' })
               // console.log(accountName);
             } else {
               this.$message.error('res.meta.msg');

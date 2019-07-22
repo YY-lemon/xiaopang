@@ -19,12 +19,16 @@ export default new Router({
       name: 'Login',
       path: '/login',
       component: Login
+
     },
 
     {
       name: 'Home',
       path: '/',
       component: Home,
+      redirect: {
+        path: '/users'
+      },
       children: [{
           name: 'Welcome',
           path: '/welcome',
