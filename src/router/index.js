@@ -6,6 +6,10 @@ import Home from '@/pages/Home'
 import UserList from '@/pages/user/UserList'
 import Role from '@/pages/role/Role'
 import Right from '@/pages/role/Right'
+import Goods from '@/pages/goods/Goods'
+import Params from '@/pages/goods/Params'
+import Categories from '@/pages/goods/Categories'
+import ToAdd from '@/pages/goods/ToAdd'
 Vue.use(Router)
 
 
@@ -39,6 +43,26 @@ export default new Router({
           name: 'Right',
           path: 'rights',
           component: Right,
+        },
+        {
+          name: 'Goods',
+          path: 'goods',
+          component: Goods,
+        },
+        {
+          name: 'Params',
+          path: 'params',
+          component: Params,
+        },
+        {
+          name: 'Categories',
+          path: 'categories',
+          component: Categories,
+        },
+        {
+          name: 'ToAdd',
+          path: 'toadd',
+          component: ToAdd,
         }
       ]
     }

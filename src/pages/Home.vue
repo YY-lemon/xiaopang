@@ -63,7 +63,7 @@ export default {
   created() {
     this.account = localStorage.getItem('accountName')
     getMenuRightApi().then(res => {
-      console.log(res);
+      // console.log(res);
       if (res.meta.status == 200) {
         this.menuList = res.data
       } else {
@@ -76,10 +76,10 @@ export default {
       this.isCollapse = !this.isCollapse
     },
     handleOpen(key, keyPath) {
-      console.log(key, keyPath);
+      // console.log(key, keyPath);
     },
     handleClose(key, keyPath) {
-      console.log(key, keyPath);
+      // console.log(key, keyPath);
     },
     // 退出登录
     loginOut() {

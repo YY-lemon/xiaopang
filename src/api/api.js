@@ -79,3 +79,7 @@ export const grantRoleRightApi = params => {
 export const getMenuRightApi = params => {
   return axios.get('menus').then(res => res.data)
 }
+// 商品列表数据
+export const getGoodsDataApi = params => {
+  return axios.get('goods', params).then(res => res.data)
+}

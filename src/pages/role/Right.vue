@@ -17,16 +17,18 @@
           <el-table-column type="index"
                            width="80">
           </el-table-column>
-          <el-table-column prop="date"
-                           label="日期"
+          <el-table-column prop="authName"
+                           label="权限名称"
                            width="180">
           </el-table-column>
-          <el-table-column prop="name"
-                           label="姓名"
+          <el-table-column prop="path"
+                           label="路径"
                            width="180">
           </el-table-column>
-          <el-table-column prop="address"
-                           label="地址">
+          <el-table-column label="层级">
+            <template slot-scope="scope">
+              {{ scope.row.level | fmtLevel}}
+            </template>
           </el-table-column>
         </el-table>
       </el-col>
@@ -35,27 +37,42 @@
 </template>
            
 <script>
+import { getRoleRightsApi } from '@/api/api.js'
 export default {
   data() {
     return {
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
+      tableData: [],
+      level: ''
     }
+  },
+  created() {
+    this.initRightsTable()
+  },
+  // 使用过滤器对level数据进行过滤
+  filters: {
+    fmtLevel(level) {
+      if (level === '0') {
+        return '一级'
+      } else if (level === '1') {
+        return '二级'
+      } else {
+        return '三级'
+      }
+    }
+  },
+  methods: {
+    // 初始化表格
+    initRightsTable() {
+      getRoleRightsApi({ type: 'list' }).then(res => {
+        console.log(res)
+        if (res.meta.status == 200) {
+          this.tableData = res.data
+        } else {
+          this.$message.warning(res.meta.msg)
+        }
+      })
+    }
+
   }
 }
 </script>
