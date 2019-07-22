@@ -10,6 +10,7 @@ import Goods from '@/pages/goods/Goods'
 import Params from '@/pages/goods/Params'
 import Categories from '@/pages/goods/Categories'
 import ToAdd from '@/pages/goods/ToAdd'
+import Report from '@/pages/report/Report'
 Vue.use(Router)
 
 
@@ -63,6 +64,11 @@ export default new Router({
           name: 'ToAdd',
           path: 'toadd',
           component: ToAdd,
+        },
+        {
+          name: 'Report',
+          path: 'reports',
+          component: Report,
         }
       ]
     }
