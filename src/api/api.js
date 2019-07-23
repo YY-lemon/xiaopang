@@ -103,3 +103,17 @@ export const deleteGoodsApi = params => {
 export const getPieDataApi = params => {
   return axios.get('reports/:type').then(res => res.data)
 }
+// 商品数据列表
+export const getGoodsCategoriesApi = params => {
+  return axios.get('categories', {
+    params: params
+  }).then(res => res.data)
+}
+// 添加分类
+export const addCategoriesApi = params => {
+  return axios.post('categories', params).then(res => res.data)
+}
+// 图片上传
+export const uploadImgApi = params => {
+  return axios.post('upload', params).then(res => res.data)
+}

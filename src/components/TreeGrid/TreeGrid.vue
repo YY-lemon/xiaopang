@@ -1,27 +1,57 @@
 <template>
-  <el-table
-    :data="data"
-    border
-    :row-style="showRow">
-    <el-table-column v-for="(column, index) in columns" :width="column.width" :key="column.dataIndex"
-      :label="column.text">
+  <el-table :data="data"
+            border
+            :row-style="showRow"
+            style="width: 99%">
+    <el-table-column v-for="(column, index) in columns"
+                     :width="column.width"
+                     :key="column.dataIndex"
+                     :label="column.text">
       <template slot-scope="scope">
-        <span v-if="spaceIconShow(index)" v-for="(space, levelIndex) in scope.row._level" class="ms-tree-space" :key="levelIndex"></span>
-        <el-button type="success" plain size="mini" round v-if="toggleIconShow(index,scope.row)" @click="toggle(scope.$index)">
-          <i v-if="!scope.row._expanded" class="el-icon-plus" aria-hidden="true"></i>
-          <i v-if="scope.row._expanded" class="el-icon-minus" aria-hidden="true"></i>
+        <span v-if="spaceIconShow(index)"
+              v-for="(space, levelIndex) in scope.row._level"
+              class="ms-tree-space"
+              :key="levelIndex"></span>
+        <el-button type="success"
+                   plain
+                   size="mini"
+                   round
+                   v-if="toggleIconShow(index,scope.row)"
+                   @click="toggle(scope.$index)">
+          <i v-if="!scope.row._expanded"
+             class="el-icon-plus"
+             aria-hidden="true"></i>
+          <i v-if="scope.row._expanded"
+             class="el-icon-minus"
+             aria-hidden="true"></i>
         </el-button>
-        <el-button size="mini" disabled round v-else-if="index===0">
+        <el-button size="mini"
+                   disabled
+                   round
+                   v-else-if="index===0">
           <i class="el-icon-minus"></i>
         </el-button>
-        <span v-else-if="index===0" class="ms-tree-space"></span>
+        <span v-else-if="index===0"
+              class="ms-tree-space"></span>
         {{scope.row[column.dataIndex]}}
       </template>
     </el-table-column>
-    <el-table-column label="操作" v-if="controls" width="160">
+    <el-table-column label="操作"
+                     v-if="controls"
+                     width="160">
       <template slot-scope="scope">
-        <el-button plain title='修改商品分类'  type="primary" size="small" @click="getCateInfoById(scope.row)" icon="el-icon-edit"></el-button>
-        <el-button plain title='删除商品分类'  type="danger" size="small" @click="deleteCategory(scope.row)" icon="el-icon-delete"></el-button>
+        <el-button plain
+                   title='修改商品分类'
+                   type="primary"
+                   size="small"
+                   @click="getCateInfoById(scope.row)"
+                   icon="el-icon-edit"></el-button>
+        <el-button plain
+                   title='删除商品分类'
+                   type="danger"
+                   size="small"
+                   @click="deleteCategory(scope.row)"
+                   icon="el-icon-delete"></el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -58,7 +88,7 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {}
   },
   computed: {
@@ -98,7 +128,7 @@ export default {
       return tmp
     },
     // 显示行
-    showRow: function ({row, rowIndex}) {
+    showRow: function ({ row, rowIndex }) {
       let show = (row._parent ? (row._parent._expanded && row._parent._show) : true)
       row._show = show
       return show ? '' : 'display:none;'
@@ -110,7 +140,7 @@ export default {
       record._expanded = !record._expanded
     },
     // 显示层级关系的空格和图标
-    spaceIconShow (index) {
+    spaceIconShow(index) {
       let me = this
       if (me.treeStructure && index === 0) {
         return true
@@ -118,18 +148,18 @@ export default {
       return false
     },
     // 点击展开和关闭的时候，切换图标
-    toggleIconShow (index, record) {
+    toggleIconShow(index, record) {
       let me = this
       if (me.treeStructure && index === 0 && record.children && record.children.length > 0) {
         return true
       }
       return false
     },
-    getCateInfoById (row) {
+    getCateInfoById(row) {
       // 根据ID查询分类信息
       this.$emit('editCate', row.cat_id)
     },
-    deleteCategory (row) {
+    deleteCategory(row) {
       // 删除分类
       this.$emit('deleteCate', row.cat_id)
     }
@@ -137,11 +167,12 @@ export default {
 }
 </script>
 <style scoped>
-  .ms-tree-space{
-    display: inline-block;
-    width: 28px;
-  }
-  .el-button--mini, .el-button--mini.is-round {
-    padding: 7px;
-  }
+.ms-tree-space {
+  display: inline-block;
+  width: 28px;
+}
+.el-button--mini,
+.el-button--mini.is-round {
+  padding: 7px;
+}
 </style>
