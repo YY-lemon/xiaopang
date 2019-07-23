@@ -65,7 +65,19 @@
       <el-tab-pane label="商品属性"
                    name="third">商品属性</el-tab-pane>
       <el-tab-pane label="商品图片"
-                   name="fourth">商品图片</el-tab-pane>
+                   name="fourth">
+        <el-upload action="http://localhost:8888/api/private/v1/upload"
+                   :on-preview="handlePreview"
+                   :on-remove="handleRemove"
+                   :headers="setHeaders()"
+                   :on-success="handleSuccess"
+                   list-type="picture"
+                   multiple>
+          <el-button size="small"
+                     type="primary">上传图片</el-button>
+
+        </el-upload>
+      </el-tab-pane>
       <el-tab-pane label="商品内容"
                    name="fifth">商品内容</el-tab-pane>
     </el-tabs>
@@ -74,7 +86,7 @@
 </template>
            
 <script>
-import { addGoodsApi } from '@/api/api.js'
+import { addGoodsApi, uploadImgApi } from '@/api/api.js'
 export default {
   data() {
     return {
@@ -90,7 +102,10 @@ export default {
         goods_cat: 0,
         goods_introduce: '',
         pics: [],
-        attrs: []
+        attrs: [],
+        fileList: [
+
+        ]
       }
     };
   },
@@ -131,7 +146,27 @@ export default {
           return false;
         }
       });
-    }
+    },
+    // 上传图片
+    setHeaders() { //设置请求头携带token值
+      let token = localStorage.getItem('mytoken');
+      return { Authorization: token }
+    },
+    // 上传图片成功时的钩子函数
+    handleSuccess(response, file, fileList) {
+      console.log(response);
+      if (response.meta.status === 200) {
+        this.$message.success(response.meta.msg)
+      } else {
+        this.$message.warning(response.meta.msg)
+      }
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview(file) {
+      console.log(file);
+    },
   }
 }
 </script>
