@@ -19,9 +19,52 @@
         </div>
         <div class="lists">
           <div class="lists-time">平均用时</div>
-          <div class="lists-info">
-            <span>环节1:</span>
-            <span>多项式分式乘除法运算</span>
+          <div class="lists-wrapper">
+            <div class="lists-info">
+              <span>环节1:</span>
+              <span>多项式分式乘除法运算</span>
+              <span>7'51''</span>
+            </div>
+            <div class="lists-info">
+              <span>环节2:</span>
+              <span>约分</span>
+              <span>12'52</span>
+            </div>
+            <div class="lists-info">
+              <span>环节3:</span>
+              <span>分式的乘除法法则</span>
+              <span>13'51</span>
+            </div>
+            <div class="lists-info">
+              <span>环节4:</span>
+              <span>通分</span>
+              <span>8'51</span>
+            </div>
+            <div class="lists-info">
+              <span>环节5:</span>
+              <span>多项式分式乘除法运算</span>
+              <span>7'51''</span>
+            </div>
+            <div class="lists-info">
+              <span>环节6:</span>
+              <span>约分</span>
+              <span>12'52</span>
+            </div>
+            <div class="lists-info">
+              <span>环节7:</span>
+              <span>分式的乘除法法则</span>
+              <span>13'51</span>
+            </div>
+            <div class="lists-info">
+              <span>环节8:</span>
+              <span>通分</span>
+              <span>8'51</span>
+            </div>
+            <div class="lists-info">
+              <span>环节9:</span>
+              <span>通分</span>
+              <span>8'51</span>
+            </div>
           </div>
         </div>
       </div>
@@ -87,6 +130,7 @@ export default {
         }
       }
       .lists {
+        height: calc(100% - 100px);
         padding: 0 10px 0 20px;
         .lists-time {
           height: 30px;
@@ -95,15 +139,24 @@ export default {
           font-size: 14px;
           color: #666;
         }
-        .lists-info {
-          height: 62px;
-          line-height: 62px;
-          border-bottom: 1px solid #ccc;
-          span {
-            color: #5e5e5e;
-            font-size: 14px;
-            &:first-child {
-              font-weight: 700;
+        .lists-wrapper {
+          height: calc(100% - 30px);
+          overflow-y: auto;
+          .lists-info {
+            width: 260px;
+            height: 62px;
+            line-height: 62px;
+            border-bottom: 1px solid #ccc;
+            float: left;
+            span {
+              color: #5e5e5e;
+              font-size: 14px;
+              &:first-child {
+                font-weight: 700;
+              }
+              &:last-child {
+                float: right;
+              }
             }
           }
         }
