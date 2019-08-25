@@ -3,7 +3,7 @@
     <div class="task-report-header"></div>
     <div class="task-report-content">
       <!-- 班级报告 -->
-      <div v-if="showLeft"
+      <div v-if="currentTab === 1"
            class="task-report-content-left">
         <div class="classWrapper">
           <div class="classInfo">
@@ -71,7 +71,7 @@
         </div>
       </div>
       <!-- 小组报告 -->
-      <div v-if="showLeft"
+      <div v-if="currentTab === 2"
            class="task-report-content-left">
         <div class="classWrapper">
           <div class="classInfo">
@@ -134,7 +134,8 @@
         </div>
       </div>
       <!-- 个人报告 -->
-      <div class="task-report-content-left">
+      <div v-if="currentTab === 3"
+           class="task-report-content-left">
         <div class="classWrapper">
           <div class="classInfo">
             <div class="img">
@@ -213,9 +214,15 @@
       </div>
       <div class="task-report-content-right">
         <div class="task-report-content-right-nav">
-          <div class="class">班级报告</div>
-          <div class="group">小组报告</div>
-          <div class="person">个人报告</div>
+          <div class="class"
+               :class="{active: currentTab===1}"
+               @click="showClass">班级报告</div>
+          <div class="group"
+               :class="{active: currentTab===2}"
+               @click="showGroup">小组报告</div>
+          <div class="person"
+               :class="{active: currentTab===3}"
+               @click="showPerson">个人报告</div>
           <div class="back">返回</div>
         </div>
       </div>
@@ -227,7 +234,21 @@
 export default {
   data() {
     return {
-      showLeft: false
+      currentTab: 1
+    }
+  },
+  methods: {
+    // 显示班级报告页面
+    showClass() {
+      this.currentTab = 1
+    },
+    // 显示小组报告页面
+    showGroup() {
+      this.currentTab = 2
+    },
+    // 显示个人报告页面
+    showPerson() {
+      this.currentTab = 3
     }
   }
 }
@@ -420,9 +441,13 @@ export default {
           height: 30px;
           line-height: 30px;
           text-align: center;
+          color: #515151;
+          font-size: 14px;
+          font-weight: 700;
           border: 1px solid rgba(242, 242, 242, 1);
           position: absolute;
           bottom: 0;
+          cursor: pointer;
         }
         .class {
           left: 0;
@@ -446,6 +471,10 @@ export default {
           position: absolute;
           right: 0;
           bottom: 10px;
+        }
+        .active {
+          background-color: #1594fb;
+          color: #fff;
         }
       }
     }
