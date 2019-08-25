@@ -11,15 +11,20 @@ import Params from '@/pages/goods/Params'
 import Categories from '@/pages/goods/Categories'
 import ToAdd from '@/pages/goods/ToAdd'
 import Report from '@/pages/report/Report'
+import TaskReport from '@/pages/TaskReport'
 Vue.use(Router)
 
-
 export default new Router({
-  routes: [{
+  routes: [
+    {
       name: 'Login',
       path: '/login',
       component: Login
-
+    },
+    {
+      path: '/taskReport',
+      name: 'TaskReport',
+      component: TaskReport
     },
 
     {
@@ -29,53 +34,53 @@ export default new Router({
       redirect: {
         path: '/users'
       },
-      children: [{
+      children: [
+        {
           name: 'Welcome',
           path: '/welcome',
-          component: Welcome,
+          component: Welcome
         },
         {
           name: 'UserList',
           path: 'users',
-          component: UserList,
+          component: UserList
         },
         {
           name: 'Role',
           path: 'roles',
-          component: Role,
+          component: Role
         },
         {
           name: 'Right',
           path: 'rights',
-          component: Right,
+          component: Right
         },
         {
           name: 'Goods',
           path: 'goods',
-          component: Goods,
+          component: Goods
         },
         {
           name: 'Params',
           path: 'params',
-          component: Params,
+          component: Params
         },
         {
           name: 'Categories',
           path: 'categories',
-          component: Categories,
+          component: Categories
         },
         {
           name: 'ToAdd',
           path: 'toadd',
-          component: ToAdd,
+          component: ToAdd
         },
         {
           name: 'Report',
           path: 'reports',
-          component: Report,
+          component: Report
         }
       ]
     }
-
   ]
 })
